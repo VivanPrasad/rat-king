@@ -1,7 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://dsk2bhusk47gt"]
+[gd_scene load_steps=30 format=3 uid="uid://dsk2bhusk47gt"]
 
 [ext_resource type="Script" uid="uid://dmh7uowdx42pp" path="res://scripts/entities/rat.gd" id="1_aj2o3"]
 [ext_resource type="Texture2D" uid="uid://dgh1ec1i8fnlk" path="res://assets/rat.png" id="1_tim7s"]
+[ext_resource type="Texture2D" uid="uid://cw0e8wmrpm1la" path="res://assets/Smoke .png" id="3_0sdve"]
 
 [sub_resource type="Animation" id="Animation_7dqwd"]
 resource_name = "FallL"
@@ -310,3 +311,10 @@ parameters/Run/blend_position = -0.56119406
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(-30, 0)
 collide_with_areas = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+color = Color(1, 1, 0, 1)
+energy = 2.0
+texture = ExtResource("3_0sdve")
+texture_scale = 0.5

@@ -1,21 +1,16 @@
 [gd_scene load_steps=3 format=3 uid="uid://cn5maweohnepm"]
 
-[sub_resource type="Gradient" id="Gradient_xw0l8"]
-offsets = PackedFloat32Array(0.46, 0.7)
-colors = PackedColorArray(0.7204674, 0.7204675, 0.7204674, 1, 0, 0, 0, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_simaw"]
-gradient = SubResource("Gradient_xw0l8")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
+[ext_resource type="Texture2D" uid="uid://cw0e8wmrpm1la" path="res://assets/Smoke .png" id="1_simaw"]
+[ext_resource type="Texture2D" uid="uid://b1p8q4m8v7xnt" path="res://assets/Poof.png" id="2_3hh8x"]
 
 [node name="Poof" type="Sprite2D"]
 modulate = Color(1, 1, 1, 0.7411765)
-texture = SubResource("GradientTexture2D_simaw")
+texture = ExtResource("1_simaw")
 
-[node name="Label" type="Label" parent="."]
-offset_left = -28.0
-offset_top = -17.0
-offset_right = 31.0
-offset_bottom = 13.0
-text = "Poof!"
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_3hh8x")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 2.0
+texture = ExtResource("1_simaw")
