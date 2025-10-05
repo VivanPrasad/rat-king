@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxgou81wy8eia"
-path="res://.godot/imported/Untitled_Artwork-4 2.png-72ee408ccf34004236d812768d895bc4.ctex"
+uid="uid://bxdujb3gnwxo"
+path="res://.godot/imported/rat_king.png-231c45b1c5ac01feb249ea62b8ef210f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Untitled_Artwork-4 2.png"
-dest_files=["res://.godot/imported/Untitled_Artwork-4 2.png-72ee408ccf34004236d812768d895bc4.ctex"]
+source_file="res://assets/rat_king.png"
+dest_files=["res://.godot/imported/rat_king.png-231c45b1c5ac01feb249ea62b8ef210f.ctex"]
 
 [params]
 
