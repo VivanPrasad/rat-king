@@ -216,7 +216,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tim7s"]
-size = Vector2(44.555, 20)
+size = Vector2(25, 20)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_aj2o3"]
 animation = &"FallL"
@@ -283,9 +283,9 @@ transitions = ["Jump", "Fall", SubResource("AnimationNodeStateMachineTransition_
 script = ExtResource("1_aj2o3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.07, 0.07)
+scale = Vector2(0.06, 0.06)
 texture = ExtResource("1_tim7s")
-offset = Vector2(100, -80)
+offset = Vector2(0, -90)
 hframes = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -296,6 +296,7 @@ libraries = {
 speed_scale = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-15, 0)
 shape = SubResource("RectangleShape2D_tim7s")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
@@ -304,3 +305,6 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/Fall/blend_position = -0.06865674
 parameters/Jump/blend_position = -0.41044778
 parameters/Run/blend_position = -0.56119406
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(-30, 0)
