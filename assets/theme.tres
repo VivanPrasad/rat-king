@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://b0r8rapg25jbj"]
 
-[ext_resource type="SystemFont" uid="uid://la3gi70cqvd4" path="res://assets/font.tres" id="1_5x3i2"]
+[ext_resource type="FontFile" uid="uid://iy477nartsid" path="res://assets/POORICH.TTF" id="1_5x3i2"]
 
 [resource]
 default_font = ExtResource("1_5x3i2")

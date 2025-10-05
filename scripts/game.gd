@@ -14,17 +14,51 @@ const MAX_ZOOM := 2.5
 const MIN_ZOOM := 0.1
 
 const RAT = preload("uid://dsk2bhusk47gt")
+const GOLD = preload("uid://cyubd1tbfy40k")
 
 func _ready() -> void:
 	spawn_rats()
+	#generate_level()
 	randomize_tiles()
 
+func generate_level() -> void:
+	level.clear()
+	for x in range(-2,31):
+		level.set_cell(Vector2i(x, -2), 0, Vector2.ZERO)
+		level.set_cell(Vector2i(x, -1), 0, Vector2.ZERO)
+		level.set_cell(Vector2i(x, 17), 0, Vector2.ZERO)
+		level.set_cell(Vector2i(x, 18), 0, Vector2.ZERO)
+
+	# Vertical borders (left and right)
+	for y in range(-2,18):
+		level.set_cell(Vector2i(-2, y), 0, Vector2.ZERO)
+		level.set_cell(Vector2i(-1, y), 0, Vector2.ZERO)
+		level.set_cell(Vector2i(30, y), 0, Vector2.ZERO)
+		level.set_cell(Vector2i(31, y), 0, Vector2.ZERO)
+	for y in range(1,17):
+		for x in range(1, 29):
+			if randi() % 5 == 0:
+				level.set_cell(Vector2(x,y), 0, Vector2.ZERO)
+	
+	var cell = level.get_used_cells().pick_random()
+	while cell.x < 1 or cell.x > 28 or cell.y < 1 or cell.y > 16:
+		cell = level.get_used_cells().pick_random()
+	level.set_cell(cell, 0, Vector2(1,1))
+	var gold = GOLD.instantiate()
+	gold.position = level.to_global(cell)
+	add_child(gold)
+	
 func randomize_tiles() -> void:
 	randomize()
 	var used_cells = level.get_used_cells()
 	for cell in used_cells:
 		var random_tile = randi() % 5
-		level.set_cell(cell, 0, Vector2(random_tile, 0))
+		if level.get_cell_atlas_coords(cell).y == 0:
+			level.set_cell(cell, 0, Vector2(random_tile, 0))
+		elif level.get_cell_atlas_coords(cell) == Vector2i.ONE:
+			var gold = GOLD.instantiate()
+			gold.position = level.to_global(cell) * 128 + Vector2.ONE * 20
+			add_child(gold)
 	used_cells = background.get_used_cells()
 	for cell in used_cells:
 		var random_tile = randi() % 5

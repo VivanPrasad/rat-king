@@ -1,4 +1,4 @@
 [gd_resource type="SystemFont" format=3 uid="uid://la3gi70cqvd4"]
 
 [resource]
-font_names = PackedStringArray("Lucida Bright")
+font_names = PackedStringArray("Poor Richard")
