@@ -20,6 +20,7 @@ var rat_returns: int = BASE_RAT_COUNT
 const MAX_ZOOM := 2.5
 const MIN_ZOOM := 0.1
 
+const CREDITS = preload("uid://xmcyfq0e5ksu")
 const RAT = preload("uid://dsk2bhusk47gt")
 const GOLD = preload("uid://cyubd1tbfy40k")
 const GARLIC = preload("uid://tud78dncd262")
@@ -56,9 +57,23 @@ func game_over() -> void:
 	rat_returns = BASE_RAT_COUNT
 	get_tree().change_scene_to_file("res://scenes/title.tscn")
 
+func win() -> void:
+	var transition := TRANSITION.instantiate()
+	transition.message = "Thanks for playing!"
+	$HUD.add_child(transition)
+	await transition.faded
+	level = 0
+	gold = 10
+	rat_count = 0
+	rat_returns = BASE_RAT_COUNT
+	get_tree().change_scene_to_file("res://scenes/ui/credits.tscn")
+
 func next_level() -> void:
 	can_leave = false
 	timer.stop()
+	if (level + 1) > levels.get_child_count():
+		win()
+		return
 	var transition := TRANSITION.instantiate()
 	transition.message = "Level %d" % [level + 1]
 	$HUD.add_child(transition)

@@ -12,7 +12,7 @@ func _ready() -> void:
 	await create_tween().tween_property(self, "modulate:a", 1.0, 0.4).finished
 	await get_tree().create_timer(1.6).timeout
 	emit_signal("faded")
-	if message == "Game Over": return
+	if message == "Game Over" or message == "Thanks for playing!": return
 	await get_tree().create_timer(1.0).timeout
 	await create_tween().tween_property(self, "modulate:a", 0.0, 0.4).finished
 	emit_signal("finished")
