@@ -12,8 +12,6 @@ class_name Game extends Node2D
 
 @onready var gold_label: Label = $HUD/MarginContainer/Label
 
-const CAMERA_SCROLL_STR := 0.0005
-
 const BASE_RAT_COUNT := 20
 var rat_count: int = BASE_RAT_COUNT
 
@@ -24,14 +22,30 @@ const RAT = preload("uid://dsk2bhusk47gt")
 const GOLD = preload("uid://cyubd1tbfy40k")
 const ITEM_HINT = preload("uid://cdd7sitsj0bio")
 
-var gold: int = 10
-var level: int = 1
+static var gold: int = 10
+static var level: int = 0
+
+const ITEM_COSTS := [5, 10, 7]
 func _ready() -> void:
 	#generate_level()
-	info.get_parent().hide()
+	for i in range(levels.get_child_count()):
+		(levels.get_child(i) as TileMapLayer).enabled = false
+	next_level()
 	connect_items()
-	randomize_tiles()
 
+func next_level() -> void:
+	levels.get_children()[level - 1].enabled = false
+	levels.get_children()[level].enabled = true
+	level += 1
+	info.get_parent().hide()
+	randomize_tiles()
+	if level == 1:
+		items.get_child(1).hide()
+		items.get_child(2).hide()
+	if level == 3:
+		items.get_child(1).show()
+		items.get_child(2).show()
+	
 func generate_level() -> void:
 	get_level().clear()
 	for x in range(-2,31):
@@ -97,7 +111,7 @@ func _process(_delta: float) -> void:
 func update_hud() -> void:
 	info.get_parent().show()
 	info.text = "Time Left: %d\nRats Left: %d" % [ceil(timer.time_left), entities.get_child_count()]
-	gold_label.text = "Gold %d" % gold
+	gold_label.text = "Gold: %d" % gold
 
 
 func _input(event: InputEvent) -> void:
@@ -138,6 +152,7 @@ func _on_item_selected(item: TextureButton) -> void:
 		_:
 			var hint := ITEM_HINT.instantiate()
 			add_child(hint)
+			items.hide()
 	
 func get_level() -> TileMapLayer:
 	return levels.get_child(level - 1)
