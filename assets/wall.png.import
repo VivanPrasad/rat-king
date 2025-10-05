@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlp7hnsbcr76i"
-path="res://.godot/imported/Rat-1.png-1e2bfaa238b8c9d6431584fd42e08699.ctex"
+uid="uid://bhikyjmubqjaf"
+path="res://.godot/imported/wall.png-6b1d64fa3ea5498e75707962a9c3b56c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Rat-1.png"
-dest_files=["res://.godot/imported/Rat-1.png-1e2bfaa238b8c9d6431584fd42e08699.ctex"]
+source_file="res://assets/wall.png"
+dest_files=["res://.godot/imported/wall.png-6b1d64fa3ea5498e75707962a9c3b56c.ctex"]
 
 [params]
 
