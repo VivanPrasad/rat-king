@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
 		modulate = Color.YELLOW
 		light.show()
 		direction = !direction
-	
+		
 	if velocity.y > 0:
 		state = State.FALL
 	elif velocity.y < 0:
@@ -66,7 +66,7 @@ func handle_lifetime() -> void:
 	set_physics_process(false)
 	var poof := POOF.instantiate()
 	poof.position = position
-	get_parent().add_child(poof)
+	get_parent().get_parent().add_child(poof)
 	create_tween().tween_property(poof, "scale", Vector2.ONE * 1.2, 0.8)
 	create_tween().tween_property(poof.get_child(1), "energy", 0.0, 1.0)
 	await create_tween().tween_property(poof, "modulate:a", 0.0, 1.0).finished

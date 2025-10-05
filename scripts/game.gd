@@ -4,6 +4,10 @@ extends Node2D
 @onready var background: = $BG/Background
 @onready var entities: Node2D = $Entities
 @onready var level: TileMapLayer = $Level
+@onready var button: Button = $HUD/MarginContainer/Button
+@onready var torch: PointLight2D = $Torch
+@onready var timer: Timer = $Timer
+@onready var info: Label = $HUD/MarginContainer/ColorRect/Label
 
 const CAMERA_SCROLL_STR := 0.005
 
@@ -16,8 +20,8 @@ const MIN_ZOOM := 0.1
 const RAT = preload("uid://dsk2bhusk47gt")
 const GOLD = preload("uid://cyubd1tbfy40k")
 
+var gold: int = 10
 func _ready() -> void:
-	spawn_rats()
 	#generate_level()
 	randomize_tiles()
 
@@ -44,9 +48,9 @@ func generate_level() -> void:
 	while cell.x < 1 or cell.x > 28 or cell.y < 1 or cell.y > 16:
 		cell = level.get_used_cells().pick_random()
 	level.set_cell(cell, 0, Vector2(1,1))
-	var gold = GOLD.instantiate()
-	gold.position = level.to_global(cell)
-	add_child(gold)
+	var gold_bag = GOLD.instantiate()
+	gold_bag.position = level.to_global(cell)
+	add_child(gold_bag)
 	
 func randomize_tiles() -> void:
 	randomize()
@@ -56,9 +60,9 @@ func randomize_tiles() -> void:
 		if level.get_cell_atlas_coords(cell).y == 0:
 			level.set_cell(cell, 0, Vector2(random_tile, 0))
 		elif level.get_cell_atlas_coords(cell) == Vector2i.ONE:
-			var gold = GOLD.instantiate()
-			gold.position = level.to_global(cell) * 128 + Vector2.ONE * 20
-			add_child(gold)
+			var gold_bag = GOLD.instantiate()
+			gold_bag.position = level.to_global(cell) * 128 + Vector2.ONE * 20
+			add_child(gold_bag)
 	used_cells = background.get_used_cells()
 	for cell in used_cells:
 		var random_tile = randi() % 5
@@ -77,17 +81,30 @@ func _process(_delta: float) -> void:
 	var mouse_pos = get_viewport().get_mouse_position()
 	var screen_center = get_viewport().get_visible_rect().size / 2.0
 	var offset = screen_center + (mouse_pos * CAMERA_SCROLL_STR)
+	torch.global_position = mouse_pos + Vector2.ONE * 10
 	background.position = -(mouse_pos * CAMERA_SCROLL_STR) / 2.0
 	camera.offset = offset
+	
+	update_hud()
+
+func update_hud() -> void:
+	info.text = "Time Left: %d\nGold: %d\n Rats Left: %d" % [ceil(timer.time_left), gold, entities.get_child_count()]
+	
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed(&"scroll_up"):
 		camera.zoom = clamp(camera.zoom + (Vector2.ONE * 0.1), Vector2.ONE * MIN_ZOOM, Vector2.ONE * MAX_ZOOM)
 	elif Input.is_action_just_pressed(&"scroll_down"):
 		camera.zoom = clamp(camera.zoom - (Vector2.ONE * 0.1), Vector2.ONE * MIN_ZOOM, Vector2.ONE * MAX_ZOOM)
-	
+		
 	if Input.is_action_just_pressed("ui_accept"):
 		if Engine.get_time_scale() == 1.0:
 			Engine.set_time_scale(3.0)
 		else:
 			Engine.set_time_scale(1.0)
 	
+
+
+func _on_raid_started() -> void:
+	button.hide()
+	timer.start()
+	spawn_rats()
