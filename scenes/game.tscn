@@ -42,7 +42,7 @@ tile_set = SubResource("TileSet_uwrxv")
 layer = -1
 
 [node name="TextureRect" type="TextureRect" parent="BG"]
-modulate = Color(0.41, 0.30353665, 0.073800005, 1)
+modulate = Color(0.32, 0.32, 0.32, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -96,8 +96,14 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
-text = "Time Left: 
-Gold:"
+text = "Time Left: 60
+Gold: 10
+Rats Left: 20"
+
+[node name="Button" type="Button" parent="HUD/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 60.0
@@ -108,5 +114,5 @@ autostart = true
 blend_mode = 1
 
 [node name="DirectionalLight2D2" type="DirectionalLight2D" parent="."]
-color = Color(0.16, 0.09488001, 0.041599996, 1)
+color = Color(0, 0, 0, 1)
 energy = 0.5

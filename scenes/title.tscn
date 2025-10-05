@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cyf3qcymfj75s"]
+[gd_scene load_steps=10 format=3 uid="uid://cyf3qcymfj75s"]
 
 [ext_resource type="Script" uid="uid://bxg4x7o47m0d1" path="res://scripts/title.gd" id="1_4ignj"]
 [ext_resource type="Texture2D" uid="uid://dw8gdgl7l3af4" path="res://assets/Menu.png" id="2_wosw1"]
@@ -8,30 +8,19 @@
 
 [sub_resource type="Animation" id="Animation_b3w7a"]
 resource_name = "Flicker"
+length = 10.0
 loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture_scale")
+tracks/0/path = NodePath(".:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 10),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [1.0, 2.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:energy")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [1.0, 1.5]
+"values": [Vector2(1119, 25.00003), Vector2(700, 500)]
 }
 
 [sub_resource type="Animation" id="Animation_4rr2b"]
@@ -60,10 +49,63 @@ tracks/1/keys = {
 "update": 0,
 "values": [1.0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(181.5, 263)]
+}
+
+[sub_resource type="Animation" id="Animation_yql1r"]
+resource_name = "Flicker2"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 2.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 1.5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(181.5, 263)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4rr2b"]
 _data = {
 &"Flicker": SubResource("Animation_b3w7a"),
+&"Flicker2": SubResource("Animation_yql1r"),
 &"RESET": SubResource("Animation_4rr2b")
 }
 
@@ -111,7 +153,7 @@ grow_vertical = 2
 custom_minimum_size = Vector2(345, 177)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 0
+size_flags_vertical = 4
 texture_normal = ExtResource("3_p6dhs")
 texture_pressed = ExtResource("3_p6dhs")
 texture_hover = ExtResource("3_p6dhs")
@@ -119,7 +161,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="PointLight2D" type="PointLight2D" parent="Buttons/Play"]
-position = Vector2(181.50003, 263)
+position = Vector2(181.5, 263)
 scale = Vector2(13.853527, 13.853527)
 texture = ExtResource("4_b3w7a")
 
@@ -127,7 +169,7 @@ texture = ExtResource("4_b3w7a")
 libraries = {
 &"": SubResource("AnimationLibrary_4rr2b")
 }
-autoplay = "Flicker"
+autoplay = "Flicker2"
 speed_scale = 0.1
 
 [node name="Quit" type="TextureButton" parent="Buttons"]

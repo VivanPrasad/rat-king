@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o483p7fe13hx"
-path="res://.godot/imported/ClosedSpring.png-e491c509b38974407dc264cffc91ed05.ctex"
+uid="uid://b7053gckxxkcp"
+path="res://.godot/imported/ClosedSpring.png-1ae48f8f76bde1f996605632fc21d93b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/ClosedSpring.png"
-dest_files=["res://.godot/imported/ClosedSpring.png-e491c509b38974407dc264cffc91ed05.ctex"]
+source_file="res://assets/ClosedSpring.png"
+dest_files=["res://.godot/imported/ClosedSpring.png-1ae48f8f76bde1f996605632fc21d93b.ctex"]
 
 [params]
 

@@ -88,19 +88,19 @@ expand_mode = 5
 
 [node name="Label" type="Label" parent="TextureRect"]
 layout_mode = 0
-offset_left = 282.0
-offset_top = 354.0
-offset_right = 858.0
-offset_bottom = 444.0
-theme_override_colors/font_color = Color(0.43137255, 0.31764707, 0.25490198, 1)
-text = "This castle is asleep, but my night has just begun.
-After years and years, my rat army has been formed.
-I must raid the treasuries of  five kindgoms, and you must help me!"
+offset_left = 289.0
+offset_top = 373.6255
+offset_right = 525.0
+offset_bottom = 463.6255
+theme_override_colors/font_color = Color(0.0903531, 0.05636608, 0.037625946, 1)
+text = "This castle is asleep, but my night has just begun..."
+autowrap_mode = 2
 
 [node name="PointLight2D" type="PointLight2D" parent="TextureRect"]
 position = Vector2(1119, 25.00003)
 scale = Vector2(13.853527, 13.853527)
 texture = ExtResource("2_xlqdv")
+metadata/_edit_lock_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TextureRect/PointLight2D"]
 libraries = {
@@ -109,13 +109,24 @@ libraries = {
 autoplay = "Flicker"
 speed_scale = 0.3
 
+[node name="Label2" type="Label" parent="TextureRect"]
+layout_mode = 0
+offset_left = 313.0
+offset_top = 441.0
+offset_right = 492.0
+offset_bottom = 469.0
+theme_override_colors/font_color = Color(1.6481774, 1.2529734, 0.94897026, 1)
+text = "[Space to Continue]"
+
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(578, 119)
 scale = Vector2(1, 0.5)
 color = Color(1, 0.8, 0.4627451, 1)
 texture = ExtResource("2_xlqdv")
 texture_scale = 8.8
+metadata/_edit_lock_ = true
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 energy = 0.8
 blend_mode = 1
+metadata/_edit_lock_ = true
