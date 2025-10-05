@@ -1,7 +1,7 @@
 extends Control
 
 @onready var buttons: VBoxContainer = $Buttons
-const GAME = preload("uid://q4j5knjnfbxn")
+
 const TUTORIAL = preload("uid://doirtr655e1no")
 
 # Called when the node enters the scene tree for the first time.

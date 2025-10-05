@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dsk2bhusk47gt"]
+[gd_scene load_steps=31 format=3 uid="uid://dsk2bhusk47gt"]
 
 [ext_resource type="Script" uid="uid://dmh7uowdx42pp" path="res://scripts/entities/rat.gd" id="1_aj2o3"]
 [ext_resource type="Texture2D" uid="uid://dgh1ec1i8fnlk" path="res://assets/rat.png" id="1_tim7s"]
@@ -280,6 +280,9 @@ states/Run/node = SubResource("AnimationNodeBlendSpace1D_5oq54")
 states/Run/position = Vector2(393, 88)
 transitions = ["Jump", "Fall", SubResource("AnimationNodeStateMachineTransition_c8hf6"), "Fall", "Jump", SubResource("AnimationNodeStateMachineTransition_knoy5"), "Start", "Run", SubResource("AnimationNodeStateMachineTransition_702ld"), "Run", "Jump", SubResource("AnimationNodeStateMachineTransition_ywisg"), "Jump", "Run", SubResource("AnimationNodeStateMachineTransition_83vmk"), "Run", "Fall", SubResource("AnimationNodeStateMachineTransition_243bp"), "Fall", "Run", SubResource("AnimationNodeStateMachineTransition_msc6a")]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0sdve"]
+size = Vector2(30, 15)
+
 [node name="Rat" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_aj2o3")
@@ -318,3 +321,13 @@ color = Color(1, 1, 0, 1)
 energy = 2.0
 texture = ExtResource("3_0sdve")
 texture_scale = 0.5
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_0sdve")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

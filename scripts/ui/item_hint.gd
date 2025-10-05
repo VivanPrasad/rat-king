@@ -48,8 +48,10 @@ func _input(event) -> void:
 				set_position(mouse_pos.snapped(Vector2.ONE * 128 * 0.3))
 				var pos = level.local_to_map(position / 0.3)
 				level.set_cell(pos,0,ITEM_COORDS[Game.item_selected])
+				(get_parent() as Game).spawn_tile_trigger(pos)
 				Game.gold -= Game.ITEM_COSTS[Game.item_selected]
 				get_parent().gold_label.text = "Gold: %d" % Game.gold
 			queue_free()
 			get_parent().items.show()
 			Game.item_selected = Game.Item.NONE
+			

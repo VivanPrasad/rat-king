@@ -9,31 +9,55 @@ class_name Game extends Node2D
 @onready var info: Label = $HUD/MarginContainer/ColorRect/Label
 @onready var items: HBoxContainer = $HUD/MarginContainer/Items
 @onready var levels: Node2D = $Levels
+@onready var objects: Node2D = $Objects
 
 @onready var gold_label: Label = $HUD/MarginContainer/Label
 
 const BASE_RAT_COUNT := 20
-var rat_count: int = BASE_RAT_COUNT
+var rat_count: int = 0
+var rat_returns: int = BASE_RAT_COUNT
 
 const MAX_ZOOM := 2.5
 const MIN_ZOOM := 0.1
 
 const RAT = preload("uid://dsk2bhusk47gt")
 const GOLD = preload("uid://cyubd1tbfy40k")
+const GARLIC = preload("uid://tud78dncd262")
 const ITEM_HINT = preload("uid://cdd7sitsj0bio")
+const CHEESE = preload("uid://h0ca6ubx7u06")
+const SPRING = preload("uid://ckwbdwrcgupds")
+const TRAP = preload("uid://c0gploh4s2x81")
+const RATHOLE = preload("uid://n5087ubsj2jj")
+const TRANSITION = preload("uid://c4yexj8r26st2")
 
+const OBJECTS = [CHEESE, GOLD, TRAP, GARLIC, SPRING, RATHOLE]
 static var gold: int = 10
 static var level: int = 0
+
+static var rat_hole: Vector2
 
 const ITEM_COSTS := [5, 10, 7]
 func _ready() -> void:
 	#generate_level()
 	for i in range(levels.get_child_count()):
 		(levels.get_child(i) as TileMapLayer).enabled = false
+		(levels.get_child(i)).show()
 	next_level()
 	connect_items()
 
+func game_over() -> void:
+	var transition := TRANSITION.instantiate()
+	transition.message = "Game Over"
+	$HUD.add_child(transition)
+	await transition.faded
+	
+	get_tree().change_scene_to_file("res://scenes/title.tscn")
+
 func next_level() -> void:
+	var transition := TRANSITION.instantiate()
+	transition.message = "Level %d" % [level + 1]
+	$HUD.add_child(transition)
+	await transition.faded
 	levels.get_children()[level - 1].enabled = false
 	levels.get_children()[level].enabled = true
 	level += 1
@@ -45,6 +69,9 @@ func next_level() -> void:
 	if level == 3:
 		items.get_child(1).show()
 		items.get_child(2).show()
+	rat_count = rat_returns
+	rat_returns = 0
+	
 	
 func generate_level() -> void:
 	get_level().clear()
@@ -77,24 +104,39 @@ func randomize_tiles() -> void:
 	var used_cells = get_level().get_used_cells()
 	for cell in used_cells:
 		var random_tile = randi() % 5
-		if get_level().get_cell_atlas_coords(cell).y == 0:
+		if get_level().get_cell_source_id(cell) == 1:
+			rat_hole = get_level().to_global(cell + Vector2i(1,0)) * 128 + Vector2.ONE * 10
+			var obj: Entity = OBJECTS[-1].instantiate()
+			obj.global_position = get_level().to_global(cell) * 128 + Vector2.ONE * 20
+			obj.id = 6
+			add_child(obj)
+		elif get_level().get_cell_atlas_coords(cell).y == 0:
 			get_level().set_cell(cell, 0, Vector2(random_tile, 0))
-		elif get_level().get_cell_atlas_coords(cell) == Vector2i.ONE:
-			var gold_bag = GOLD.instantiate()
-			gold_bag.position = get_level().to_global(cell) * 128 + Vector2.ONE * 20
-			add_child(gold_bag)
+		else:
+			spawn_tile_trigger(cell)
 	used_cells = background.get_used_cells()
 	for cell in used_cells:
 		var random_tile = randi() % 5
 		background.set_cell(cell, 0, Vector2(random_tile, 0))
 
+func spawn_tile_trigger(cell: Vector2i) -> void:
+	var coords = get_level().get_cell_atlas_coords(cell)
+	match coords:
+		_:
+			var obj: Entity = OBJECTS[coords.x].instantiate()
+			obj.global_position = get_level().to_global(cell) * 128 + Vector2.ONE * 20
+			obj.id = coords.x
+			add_child(obj)
+
+var can_leave: bool = false
 func spawn_rats() -> void:
 	for i in range(rat_count):
 		var rat := RAT.instantiate()
-		rat.position = Vector2(80.0, 57.0)
+		rat.position = rat_hole
 		rat.direction = 0
 		entities.add_child(rat)
 		await get_tree().create_timer(0.5).timeout
+	can_leave = true
 	
 
 func _process(_delta: float) -> void:
@@ -107,6 +149,24 @@ func _process(_delta: float) -> void:
 	
 	if not timer.is_stopped():
 		update_hud()
+	
+	if can_leave and entities.get_child_count() == 0 and rat_returns > 0:
+		set_process(false)
+		await get_tree().create_timer(1.0).timeout
+		next_level()
+	elif can_leave and entities.get_child_count() == 0 and rat_returns == 0:
+		set_process(false)
+		await get_tree().create_timer(1.0).timeout
+		game_over()
+	elif can_leave and timer.is_stopped() and rat_returns == 0:
+		set_process(false)
+		await get_tree().create_timer(1.0).timeout
+		game_over()
+	elif can_leave and timer.is_stopped() and rat_returns > 0:
+		set_process(false)
+		await get_tree().create_timer(1.0).timeout
+		next_level()
+
 
 func update_hud() -> void:
 	info.get_parent().show()
@@ -114,7 +174,7 @@ func update_hud() -> void:
 	gold_label.text = "Gold: %d" % gold
 
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed(&"scroll_up"):
 		camera.zoom = clamp(camera.zoom + (Vector2.ONE * 0.1), Vector2.ONE * MIN_ZOOM, Vector2.ONE * MAX_ZOOM)
 	elif Input.is_action_just_pressed(&"scroll_down"):
@@ -125,11 +185,6 @@ func _input(event: InputEvent) -> void:
 			Engine.set_time_scale(3.0)
 		else:
 			Engine.set_time_scale(1.0)
-	
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			if item_selected != Item.NONE:
-				print("Left mouse button pressed")
 			
 func connect_items() -> void:
 	for item in items.find_children("*","TextureButton"):
