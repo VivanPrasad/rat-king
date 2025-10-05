@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdd7sitsj0bio"]
+
+[ext_resource type="Script" uid="uid://bgy5s38jlyggw" path="res://scripts/ui/item_hint.gd" id="1_slu83"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3tx2r"]
+
+[node name="ItemHint" type="Area2D"]
+script = ExtResource("1_slu83")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(10, 10)
+shape = SubResource("RectangleShape2D_3tx2r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+centered = false
