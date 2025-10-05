@@ -56,11 +56,14 @@ func _physics_process(delta: float) -> void:
 		state = State.RUN
 
 	move_and_slide()
+	
+@onready var timer: Timer = $Timer
 
 func handle_lifetime() -> void:
 	modulate.g = randf_range(0.8,1.0)
 	modulate.b = randf_range(0.8,1.0)
-	await get_tree().create_timer(30.0 + randf_range(-0.25, 1.0)).timeout
+	timer.wait_time += randf_range(-0.25, 1.0)
+	await timer.timeout
 	hide()
 	set_physics_process(false)
 	var poof := POOF.instantiate()
@@ -76,12 +79,19 @@ func handle_lifetime() -> void:
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area is Entity:
 		match (area as Entity).id:
+			0:
+				timer.start()
 			1:
 				modulate = Color.YELLOW
 				light.show()
 				gold += 1
+			2:
+				queue_free()
 			3:
 				direction = !direction
+			4:
+				velocity.y = JUMP_VELOCITY * 2
+				#velocity.x *= 4.0
 			6:
 				Game.gold += self.gold
 				$"/root/Game".rat_returns += 1

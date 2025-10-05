@@ -36,7 +36,7 @@ static var level: int = 0
 
 static var rat_hole: Vector2
 
-const ITEM_COSTS := [5, 10, 7]
+const ITEM_COSTS := [10, 15, 20]
 func _ready() -> void:
 	#generate_level()
 	for i in range(levels.get_child_count()):
@@ -50,10 +50,15 @@ func game_over() -> void:
 	transition.message = "Game Over"
 	$HUD.add_child(transition)
 	await transition.faded
-	
+	level = 0
+	gold = 10
+	rat_count = 0
+	rat_returns = BASE_RAT_COUNT
 	get_tree().change_scene_to_file("res://scenes/title.tscn")
 
 func next_level() -> void:
+	can_leave = false
+	timer.stop()
 	var transition := TRANSITION.instantiate()
 	transition.message = "Level %d" % [level + 1]
 	$HUD.add_child(transition)
@@ -62,6 +67,8 @@ func next_level() -> void:
 	levels.get_children()[level].enabled = true
 	level += 1
 	info.get_parent().hide()
+	for child in objects.get_children():
+		child.queue_free()
 	randomize_tiles()
 	if level == 1:
 		items.get_child(1).hide()
@@ -71,6 +78,8 @@ func next_level() -> void:
 		items.get_child(2).show()
 	rat_count = rat_returns
 	rat_returns = 0
+	button.show()
+	set_process(true)
 	
 	
 func generate_level() -> void:
@@ -97,7 +106,7 @@ func generate_level() -> void:
 	get_level().set_cell(cell, 0, Vector2(1,1))
 	var gold_bag = GOLD.instantiate()
 	gold_bag.position = get_level().to_global(cell)
-	add_child(gold_bag)
+	objects.add_child(gold_bag)
 	
 func randomize_tiles() -> void:
 	randomize()
@@ -109,7 +118,7 @@ func randomize_tiles() -> void:
 			var obj: Entity = OBJECTS[-1].instantiate()
 			obj.global_position = get_level().to_global(cell) * 128 + Vector2.ONE * 20
 			obj.id = 6
-			add_child(obj)
+			objects.add_child(obj)
 		elif get_level().get_cell_atlas_coords(cell).y == 0:
 			get_level().set_cell(cell, 0, Vector2(random_tile, 0))
 		else:
@@ -126,7 +135,7 @@ func spawn_tile_trigger(cell: Vector2i) -> void:
 			var obj: Entity = OBJECTS[coords.x].instantiate()
 			obj.global_position = get_level().to_global(cell) * 128 + Vector2.ONE * 20
 			obj.id = coords.x
-			add_child(obj)
+			objects.add_child(obj)
 
 var can_leave: bool = false
 func spawn_rats() -> void:
@@ -211,6 +220,7 @@ func _on_item_selected(item: TextureButton) -> void:
 	
 func get_level() -> TileMapLayer:
 	return levels.get_child(level - 1)
+	
 func _on_raid_started() -> void:
 	button.hide()
 	timer.start()
