@@ -23,9 +23,9 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	var mouse_pos = get_viewport().get_mouse_position()
-	set_position(mouse_pos.snapped(Vector2.ONE * 128 * 0.3))
+	set_position(mouse_pos.snapped(Vector2.ONE * 128 ))
 	var level = (get_parent() as Game).get_level()
-	if level.local_to_map(global_position) + Vector2i(0,1) in level.get_used_cells():
+	if level.local_to_map(global_position) + Vector2i(0,-1) in level.get_used_cells():
 		modulate = Color.LIME
 		modulate.a = 0.8
 	else:
