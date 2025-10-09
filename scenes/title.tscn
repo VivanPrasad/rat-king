@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cyf3qcymfj75s"]
+[gd_scene load_steps=11 format=3 uid="uid://cyf3qcymfj75s"]
 
 [ext_resource type="Script" uid="uid://bxg4x7o47m0d1" path="res://scripts/title.gd" id="1_4ignj"]
 [ext_resource type="Texture2D" uid="uid://dw8gdgl7l3af4" path="res://assets/Menu.png" id="2_wosw1"]
 [ext_resource type="Texture2D" uid="uid://dnq5ecmwo7g2l" path="res://assets/Play.png" id="3_p6dhs"]
-[ext_resource type="Texture2D" uid="uid://cw0e8wmrpm1la" path="res://assets/Smoke .png" id="4_b3w7a"]
+[ext_resource type="Texture2D" uid="uid://cw0e8wmrpm1la" path="res://assets/Smoke.png" id="4_b3w7a"]
 [ext_resource type="Texture2D" uid="uid://cylhxa5mvs0jy" path="res://assets/Quit.png" id="4_pyl7j"]
+[ext_resource type="AudioStream" uid="uid://dxutiqff3ssr" path="res://assets/rpg_theme.mp3" id="6_4rr2b"]
 
 [sub_resource type="Animation" id="Animation_b3w7a"]
 resource_name = "Flicker"
@@ -21,45 +22,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(1119, 25.00003), Vector2(700, 500)]
-}
-
-[sub_resource type="Animation" id="Animation_4rr2b"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture_scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:energy")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(181.5, 263)]
 }
 
 [sub_resource type="Animation" id="Animation_yql1r"]
@@ -101,6 +63,69 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(181.5, 263)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../../Music:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1152, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4rr2b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(181.5, 263)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../../Music:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1152, -100)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4rr2b"]
 _data = {
@@ -117,6 +142,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4ignj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Buttons/Play/PointLight2D")
+libraries = {
+&"": SubResource("AnimationLibrary_4rr2b")
+}
+autoplay = "Flicker2"
+speed_scale = 0.1
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -165,13 +198,6 @@ position = Vector2(181.5, 263)
 scale = Vector2(13.853527, 13.853527)
 texture = ExtResource("4_b3w7a")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Buttons/Play/PointLight2D"]
-libraries = {
-&"": SubResource("AnimationLibrary_4rr2b")
-}
-autoplay = "Flicker2"
-speed_scale = 0.1
-
 [node name="Quit" type="TextureButton" parent="Buttons"]
 custom_minimum_size = Vector2(330, 164)
 layout_mode = 2
@@ -184,3 +210,10 @@ stretch_mode = 0
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 blend_mode = 1
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-1152, -100)
+stream = ExtResource("6_4rr2b")
+volume_db = -15.0
+autoplay = true
+bus = &"Music"

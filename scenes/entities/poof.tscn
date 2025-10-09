@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cn5maweohnepm"]
 
-[ext_resource type="Texture2D" uid="uid://cw0e8wmrpm1la" path="res://assets/Smoke .png" id="1_simaw"]
+[ext_resource type="Texture2D" uid="uid://cw0e8wmrpm1la" path="res://assets/Smoke.png" id="1_simaw"]
 [ext_resource type="Texture2D" uid="uid://b1p8q4m8v7xnt" path="res://assets/Poof.png" id="2_3hh8x"]
 
 [node name="Poof" type="Sprite2D"]

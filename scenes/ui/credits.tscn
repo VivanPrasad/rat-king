@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dceixlawjyod2" path="res://assets/Credits.png" id="1_oap8i"]
 [ext_resource type="Script" uid="uid://bycjc6h51455k" path="res://scripts/ui/credits.gd" id="1_pqmjv"]
-[ext_resource type="Texture2D" uid="uid://cw0e8wmrpm1la" path="res://assets/Smoke .png" id="2_jkvjv"]
+[ext_resource type="Texture2D" uid="uid://cw0e8wmrpm1la" path="res://assets/Smoke.png" id="2_jkvjv"]
 
 [node name="Credits" type="Control"]
 layout_mode = 3

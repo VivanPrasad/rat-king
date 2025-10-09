@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cyubd1tbfy40k"]
 
 [ext_resource type="Script" uid="uid://4x8imrywswp7" path="res://scripts/objects/item.gd" id="1_3lax5"]
-[ext_resource type="Texture2D" uid="uid://cw0e8wmrpm1la" path="res://assets/Smoke .png" id="1_nyvh6"]
+[ext_resource type="Texture2D" uid="uid://cw0e8wmrpm1la" path="res://assets/Smoke.png" id="1_nyvh6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lbhrr"]
 size = Vector2(10, 20)
@@ -47,19 +47,19 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [2.0, 1.5]
+"values": [1.5, 3.5]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("PointLight2D:texture_scale")
-tracks/1/interp = 1
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [2.0, 2.5]
+"values": [1.7, 2.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mil6w"]
@@ -77,9 +77,8 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_lbhrr")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(1, 1, 0.58431375, 1)
+color = Color(1, 1, 0.36862746, 1)
 energy = 2.0
-shadow_enabled = true
 texture = ExtResource("1_nyvh6")
 texture_scale = 2.0
 

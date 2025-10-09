@@ -9,11 +9,11 @@ func _ready() -> void:
 	label.text = message
 	modulate.a = 0.0
 	create_tween().tween_property(label,"visible_ratio",1.0,0.8)
-	await create_tween().tween_property(self, "modulate:a", 1.0, 0.4).finished
+	await create_tween().tween_property(self, "modulate:a", 0.9 if message.contains("Level") else 1.0, 0.4).finished
 	await get_tree().create_timer(1.6).timeout
 	emit_signal("faded")
 	if message == "Game Over" or message == "Thanks for playing!": return
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(0.4).timeout
 	await create_tween().tween_property(self, "modulate:a", 0.0, 0.4).finished
 	emit_signal("finished")
 	queue_free()

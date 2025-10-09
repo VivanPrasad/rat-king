@@ -5,6 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3tx2r"]
 
 [node name="ItemHint" type="Area2D"]
+process_mode = 3
 script = ExtResource("1_slu83")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

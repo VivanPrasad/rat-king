@@ -1,7 +1,27 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b0r8rapg25jbj"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://b0r8rapg25jbj"]
 
 [ext_resource type="FontFile" uid="uid://iy477nartsid" path="res://assets/POORICH.TTF" id="1_5x3i2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5x3i2"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
 
 [resource]
 default_font = ExtResource("1_5x3i2")
 default_font_size = 24
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_5x3i2")
+RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 0.49803922)
+RichTextLabel/constants/shadow_offset_x = 1
+RichTextLabel/constants/shadow_offset_y = 2

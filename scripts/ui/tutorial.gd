@@ -33,8 +33,9 @@ func speak() -> void:
 func _process(_delta: float) -> void:
 	label.visible = bool(text.visible_ratio == 1.0)
 
-func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("ui_accept") \
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton \
+		and event.button_index == MOUSE_BUTTON_LEFT and event.is_released() \
 			and line != -1:
 		if tween and tween.is_running():
 			text.visible_ratio = 1.0

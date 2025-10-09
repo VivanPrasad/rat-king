@@ -1,8 +1,10 @@
-[gd_scene load_steps=31 format=3 uid="uid://dsk2bhusk47gt"]
+[gd_scene load_steps=33 format=3 uid="uid://dsk2bhusk47gt"]
 
 [ext_resource type="Script" uid="uid://dmh7uowdx42pp" path="res://scripts/entities/rat.gd" id="1_aj2o3"]
 [ext_resource type="Texture2D" uid="uid://dgh1ec1i8fnlk" path="res://assets/rat.png" id="1_tim7s"]
-[ext_resource type="Texture2D" uid="uid://cw0e8wmrpm1la" path="res://assets/Smoke .png" id="3_0sdve"]
+[ext_resource type="Texture2D" uid="uid://cw0e8wmrpm1la" path="res://assets/Smoke.png" id="3_0sdve"]
+[ext_resource type="AudioStream" uid="uid://64qvgb8t2v2k" path="res://assets/squeak.mp3" id="4_f3w4e"]
+[ext_resource type="AudioStream" uid="uid://bstssvyvagbuu" path="res://assets/squeal.mp3" id="5_ty1l7"]
 
 [sub_resource type="Animation" id="Animation_7dqwd"]
 resource_name = "FallL"
@@ -284,6 +286,7 @@ transitions = ["Jump", "Fall", SubResource("AnimationNodeStateMachineTransition_
 size = Vector2(30, 15)
 
 [node name="Rat" type="CharacterBody2D"]
+process_mode = 1
 collision_layer = 2
 script = ExtResource("1_aj2o3")
 
@@ -292,6 +295,8 @@ scale = Vector2(0.06, 0.06)
 texture = ExtResource("1_tim7s")
 offset = Vector2(0, -90)
 hframes = 5
+
+[node name="GoldPile" type="Node2D" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 active = false
@@ -315,13 +320,6 @@ parameters/Run/blend_position = -0.56119406
 target_position = Vector2(-30, 0)
 collide_with_areas = true
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-visible = false
-color = Color(1, 1, 0, 1)
-energy = 2.0
-texture = ExtResource("3_0sdve")
-texture_scale = 0.5
-
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
 monitorable = false
@@ -330,7 +328,22 @@ monitorable = false
 shape = SubResource("RectangleShape2D_0sdve")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 20.0
+autostart = true
+
+[node name="Squeak" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_f3w4e")
+max_polyphony = 2
+
+[node name="Squeal" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_ty1l7")
+volume_db = -5.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+energy = 2.0
+texture = ExtResource("3_0sdve")
+texture_scale = 0.5
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfurfhfx1xq7t"]
+
+[ext_resource type="Texture2D" uid="uid://daah0lgxpo0b7" path="res://assets/gold_icon.png" id="1_thvu5"]
+[ext_resource type="Texture2D" uid="uid://cw0e8wmrpm1la" path="res://assets/Smoke.png" id="2_m08eq"]
+
+[node name="GoldPile" type="Sprite2D"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_thvu5")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, 16)
+scale = Vector2(2, 2)
+color = Color(1, 1, 0.40392157, 1)
+texture = ExtResource("2_m08eq")
+texture_scale = 0.5

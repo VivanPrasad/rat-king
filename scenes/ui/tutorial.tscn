@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://doirtr655e1no"]
+[gd_scene load_steps=8 format=3 uid="uid://doirtr655e1no"]
 
 [ext_resource type="Script" uid="uid://ts4bttekxr3m" path="res://scripts/ui/tutorial.gd" id="1_6e533"]
 [ext_resource type="Texture2D" uid="uid://bjjwafkmeqjtj" path="res://assets/TutorialScene.png" id="1_k8r76"]
-[ext_resource type="Texture2D" uid="uid://cw0e8wmrpm1la" path="res://assets/Smoke .png" id="2_xlqdv"]
+[ext_resource type="Texture2D" uid="uid://cw0e8wmrpm1la" path="res://assets/Smoke.png" id="2_xlqdv"]
+[ext_resource type="AudioStream" uid="uid://dxutiqff3ssr" path="res://assets/rpg_theme.mp3" id="4_4de72"]
 
 [sub_resource type="Animation" id="Animation_b3w7a"]
 resource_name = "Flicker"
@@ -107,7 +108,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_4rr2b")
 }
 autoplay = "Flicker"
-speed_scale = 0.3
+speed_scale = 0.5
 
 [node name="Label2" type="Label" parent="TextureRect"]
 layout_mode = 0
@@ -116,7 +117,7 @@ offset_top = 441.0
 offset_right = 492.0
 offset_bottom = 469.0
 theme_override_colors/font_color = Color(1.6481774, 1.2529734, 0.94897026, 1)
-text = "[Space to Continue]"
+text = "[Click to Continue]"
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(578, 119)
@@ -130,3 +131,10 @@ metadata/_edit_lock_ = true
 energy = 0.8
 blend_mode = 1
 metadata/_edit_lock_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_4de72")
+volume_db = -25.0
+pitch_scale = 0.5
+autoplay = true
+bus = &"Music"
